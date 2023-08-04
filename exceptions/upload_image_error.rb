@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module CustomExceptions
+module Exceptions
   class UploadImageError < StandardError
   end
 end

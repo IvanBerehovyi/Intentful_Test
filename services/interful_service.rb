@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-require_relative '../custom_exceptions/resolution_validation_error'
+require_relative '../exceptions/validation/resolution_error'
+require_relative '../exceptions/validation/year_error'
+require_relative '../exceptions/upload_image_error'
 module Services
   class InterfulService
     include Modules::Validator
@@ -13,11 +15,11 @@ module Services
         Services::SaveService.new(url, params).call
       rescue OpenURI::HTTPError
         p 'There is no site with these parameters.'
-      rescue CustomExceptions::ResolutionValidationError => e
+      rescue Exceptions::Validation::ResolutionError => e
         p e.message
-      rescue CustomExceptions::UploadImageError => e
+      rescue Exceptions::UploadImageError => e
         p e.message
-      rescue CustomExceptions::YearValidationError => e
+      rescue Exceptions::Validation::YearError => e
         p e.message
       rescue Date::Error
         p 'You entered the wrong date. Try in the format 072023 where first is the month then the year.'

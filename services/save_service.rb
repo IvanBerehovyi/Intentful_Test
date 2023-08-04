@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../custom_exceptions/resolution_validation_error'
+require_relative '../exceptions/upload_image_error'
 
 module Services
   class SaveService
@@ -20,7 +20,7 @@ module Services
     def save
       folder_name = "images/#{params[:month]}_#{params[:resolution]}"
       resources = Services::ParserService.new(@url, params[:resolution]).call
-      raise CustomExceptions::UploadImageError, 'No images were found for these parameters, try another format.' if resources.empty?
+      raise Exceptions::UploadImageError, 'No images were found for these parameters, try another format.' if resources.empty?
 
       save_resources(resources, folder_name)
       p 'Congratulations! You have successfully uploaded pictures.'
