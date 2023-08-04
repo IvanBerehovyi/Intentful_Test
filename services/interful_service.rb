@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../exceptions/validation/resolution_error'
-require_relative '../exceptions/validation/year_error'
-require_relative '../exceptions/upload_image_error'
 module Services
   class InterfulService
     include Modules::Validator
@@ -12,7 +9,7 @@ module Services
       begin
         params
         validate_params
-        Services::SaveService.new(url, params).call
+        Services::SaveService.new(url, params).save
       rescue OpenURI::HTTPError
         p 'There is no site with these parameters.'
       rescue Exceptions::Validation::ResolutionError => e

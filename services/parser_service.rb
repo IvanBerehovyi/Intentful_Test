@@ -10,12 +10,6 @@ module Services
       @resolution = resolution
     end
 
-    def call
-      parse_html
-    end
-
-    private
-
     def parse_html
       parsed_html = Nokogiri::HTML(URI.open(@url))
       resources = parsed_html.css("a:contains(\"#{@resolution}\")")

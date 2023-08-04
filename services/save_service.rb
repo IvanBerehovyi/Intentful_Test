@@ -9,17 +9,11 @@ module Services
       @params = params
     end
 
-    def call
-      save
-    end
-
-    private
-
     attr_reader :params
 
     def save
       folder_name = "images/#{params[:month]}_#{params[:resolution]}"
-      resources = Services::ParserService.new(@url, params[:resolution]).call
+      resources = Services::ParserService.new(@url, params[:resolution]).parse_html
       raise Exceptions::UploadImageError, 'No images were found for these parameters, try another format.' if resources.empty?
 
       save_resources(resources, folder_name)
